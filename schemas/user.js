@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const { Schema, model } = mongoose
-const { Subscribe, SALT_FACTOR } = require('../helpers/constants')
+const { SALT_FACTOR } = require('../helpers/constants')
 const bcrypt = require('bcryptjs')
 const { nanoid } = require('nanoid')
 
@@ -18,14 +18,6 @@ const userSchema = new Schema(
       type: String,
       required: [true, 'Email is required'],
       unique: true,
-    },
-    subscription: {
-      type: String,
-      enum: {
-        values: [Subscribe.START, Subscribe.PROFESSIONAL, Subscribe.BUSINESS],
-        message: "Isn't allowed",
-      },
-      default: Subscribe.START,
     },
     token: {
       type: String,

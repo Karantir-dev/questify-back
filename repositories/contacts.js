@@ -30,7 +30,7 @@ class ContactsRepository {
         select: filter ? filter.split('|').join(' ') : '',
         populate: {
           path: 'owner',
-          select: 'name email subscription -_id',
+          select: 'name email -_id',
         },
       })
       .then(({ docs }) => docs)
@@ -42,7 +42,7 @@ class ContactsRepository {
       .findOne({ _id: id, owner: userId })
       .populate({
         path: 'owner',
-        select: 'name email subscription -_id',
+        select: 'name email -_id',
       })
     return result
   }
@@ -52,7 +52,7 @@ class ContactsRepository {
       .create({ ...body, owner: userId })
       .populate({
         path: 'owner',
-        select: 'name email subscription -_id',
+        select: 'name email -_id',
       })
     return result
   }
@@ -62,7 +62,7 @@ class ContactsRepository {
       .findByIdAndRemove({ _id: id, owner: userId })
       .populate({
         path: 'owner',
-        select: 'name email subscription -_id',
+        select: 'name email -_id',
       })
     return result
   }
@@ -72,7 +72,7 @@ class ContactsRepository {
       .findByIdAndUpdate({ _id: id, owner: userId }, { ...body }, { new: true })
       .populate({
         path: 'owner',
-        select: 'name email subscription -_id',
+        select: 'name email -_id',
       })
     return result
   }

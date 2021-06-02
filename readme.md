@@ -22,7 +22,6 @@ RequestBody: {
   "email": "example@example.com", //Обязательное поле
   "password": "examplepassword", //Обязательное поле. Alphanum, min 3 chars
   "name": "Test", //Необязательное поле. По-умолчанию "NONAME"
-  "subscription": "pro" //Необязательное поле. Может быть только "starter", "pro" или "business"
 }
 ```
 
@@ -57,8 +56,7 @@ RequestBody: {
     "message": "registration done",
     "data": {
         "id": "6092e64cc63fe94d603a2bfc",
-        "email": "example@example.com",
-        "subscription": "starter"
+        "email": "example@example.com"
     }
 }
 ```
@@ -187,51 +185,7 @@ Authorization: "Bearer {{token}}"
     "message": "current user info",
     "data": {
         "email": "user1@mail.com",
-        "subscription": "pro"
     }
 }
 ```
 
-### 1.5 Обновление подписки (`subscription`) пользователя
-
-Происходит на эндпоинте [`/users`](#subscription-request)
-
-- При ошибке валидации возвращает [Ошибку валидации](#subscription-validation-error).
-
-- При успешном обновлении получаем [Успешный ответ](#subscription-success-response).
-
-#### Subscription request
-
-```shell
-PATCH /users
-Authorization: "Bearer {{token}}"
-Content-Type: application/json
-RequestBody: {
-  "subscription" : "pro" //Обязательное поле. Может быть только "starter", "pro" или "business"
-}
-```
-
-#### Subscription validation error
-
-```shell
-{
-    "status": "error",
-    "code": 400,
-    "message": "Field: subscription must be one of [starter, pro, business]",
-    "data": "Bad Request"
-}
-```
-
-#### Subscription success response
-
-```shell
-{
-    "status": "success",
-    "code": 200,
-    "message": "user subscription is update",
-    "data": {
-        "email": "user1@mail.com",
-        "subscription": "pro"
-    }
-}
-```

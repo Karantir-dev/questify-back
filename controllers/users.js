@@ -19,7 +19,7 @@ const registration = async (req, res, next) => {
   }
   try {
     const newUser = await usersService.createContact(req.body)
-    const { id, name, email, subscription, verifyTokenEmail } = newUser
+    const { id, name, email, verifyTokenEmail } = newUser
 
     try {
       const emailService = new EmailService(process.env.NODE_ENV)
@@ -35,7 +35,6 @@ const registration = async (req, res, next) => {
       data: {
         id,
         email,
-        subscription,
       },
     })
   } catch (error) {
@@ -74,47 +73,18 @@ const logout = async (req, res, next) => {
   return res.status(httpStatusCodes.NO_CONTENT).json({})
 }
 
-const updateSubscription = async (req, res, next) => {
-  try {
-    const id = req.user?.id
-    const user = await usersService.update(id, req.body)
-    if (user) {
-      const { email, subscription } = user
-      return res.status(httpStatusCodes.OK).json({
-        status: 'success',
-        code: httpStatusCodes.OK,
-        message: 'user subscription is update',
-        data: {
-          email,
-          subscription,
-        },
-      })
-    } else {
-      return next({
-        status: 'error',
-        code: httpStatusCodes.NOT_FOUND,
-        message: 'Not Found User',
-        data: 'Not Found',
-      })
-    }
-  } catch (error) {
-    next(error)
-  }
-}
-
 const getCurrent = async (req, res, next) => {
   try {
     const token = await req.user?.token
     const user = await usersService.findByToken(token)
     if (user) {
-      const { email, subscription } = user
+      const { email } = user
       return res.status(httpStatusCodes.OK).json({
         status: 'success',
         code: httpStatusCodes.OK,
         message: 'current user info',
         data: {
           email,
-          subscription,
         },
       })
     } else {
@@ -184,7 +154,6 @@ module.exports = {
   registration,
   login,
   logout,
-  updateSubscription,
   getCurrent,
   verifyUser,
   repeatEmailVerify,
