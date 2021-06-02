@@ -29,15 +29,6 @@ class UsersService {
     const data = await this.repositories.users.update(id, body)
     return data
   }
-
-  async updateAvatar(id, avatarUrl, idCloudAvatar) {
-    const data = await this.repositories.users.updateAvatar(
-      id,
-      avatarUrl,
-      idCloudAvatar,
-    )
-    return data
-  }
 }
 
 module.exports = UsersService

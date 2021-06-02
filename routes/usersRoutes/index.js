@@ -8,15 +8,8 @@ const {
 } = require('../../validation/users')
 const guard = require('../../helpers/guard')
 const limiter = require('../../helpers/reglimiter')
-const uploadAvatar = require('../../helpers/upload-avatar')
 
 router.patch('/', guard, validatesUpdateSubscription, ctrl.updateSubscription)
-router.patch(
-  '/avatars',
-  guard,
-  uploadAvatar.single('avatar'),
-  ctrl.updateAvatar,
-)
 
 router.get('/current', guard, ctrl.getCurrent)
 router.get('/verify/:token', ctrl.verifyUser)

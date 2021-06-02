@@ -1,6 +1,5 @@
 const { AuthService, UsersService } = require('../services')
 const { httpStatusCodes } = require('../helpers/httpstatuscodes')
-const { saveAvatarUserCloud } = require('../helpers/save-avatar-cloud')
 const EmailService = require('../services/email')
 
 const authService = new AuthService()
@@ -20,7 +19,7 @@ const registration = async (req, res, next) => {
   }
   try {
     const newUser = await usersService.createContact(req.body)
-    const { id, name, email, subscription, avatar, verifyTokenEmail } = newUser
+    const { id, name, email, subscription, verifyTokenEmail } = newUser
 
     try {
       const emailService = new EmailService(process.env.NODE_ENV)
@@ -37,7 +36,6 @@ const registration = async (req, res, next) => {
         id,
         email,
         subscription,
-        avatar,
       },
     })
   } catch (error) {
@@ -109,7 +107,7 @@ const getCurrent = async (req, res, next) => {
     const token = await req.user?.token
     const user = await usersService.findByToken(token)
     if (user) {
-      const { email, subscription, avatar } = user
+      const { email, subscription } = user
       return res.status(httpStatusCodes.OK).json({
         status: 'success',
         code: httpStatusCodes.OK,
@@ -117,7 +115,6 @@ const getCurrent = async (req, res, next) => {
         data: {
           email,
           subscription,
-          avatar,
         },
       })
     } else {
@@ -128,22 +125,6 @@ const getCurrent = async (req, res, next) => {
         data: 'Not Found',
       })
     }
-  } catch (error) {
-    next(error)
-  }
-}
-
-const updateAvatar = async (req, res, next) => {
-  try {
-    const { id } = req.user
-    const { idCloudAvatar, avatarUrl } = await saveAvatarUserCloud(req)
-    await usersService.updateAvatar(id, avatarUrl, idCloudAvatar)
-    return res.status(httpStatusCodes.OK).json({
-      status: 'success',
-      code: httpStatusCodes.OK,
-      message: 'user avatar is update',
-      data: { avatarUrl },
-    })
   } catch (error) {
     next(error)
   }
@@ -205,7 +186,6 @@ module.exports = {
   logout,
   updateSubscription,
   getCurrent,
-  updateAvatar,
   verifyUser,
   repeatEmailVerify,
 }

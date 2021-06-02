@@ -45,14 +45,6 @@ class UsersRepository {
       { new: true },
     )
   }
-
-  async updateAvatar(id, avatarUrl, idCloudAvatar = null) {
-    const data = await this.model.updateOne(
-      { _id: id },
-      { avatar: avatarUrl, idCloudAvatar },
-    )
-    return data
-  }
 }
 
 module.exports = UsersRepository

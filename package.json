@@ -14,6 +14,9 @@
     "cors": "2.8.5",
     "dotenv": "8.2.0",
     "express": "4.17.1",
+    "express-query-boolean": "2.0.0",
+    "express-rate-limit": "5.2.6",
+    "helmet": "4.6.0",
     "joi": "17.4.0",
     "jsonwebtoken": "8.5.1",
     "mailgen": "2.0.14",
@@ -23,13 +26,7 @@
     "multer": "1.4.2",
     "nanoid": "3.1.23",
     "passport": "0.4.1",
-    "passport-jwt": "4.0.0",
-    "cloudinary": "1.25.1",
-    "express-query-boolean": "2.0.0",
-    "express-rate-limit": "5.2.6",
-    "gravatar": "1.8.1",
-    "helmet": "4.6.0",
-    "jimp": "0.16.1"
+    "passport-jwt": "4.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.13.14",
