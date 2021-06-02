@@ -1,21 +1,39 @@
-const express = require("express");
-const router = express.Router();
+const express = require('express')
+const router = express.Router()
 const {
-  getAll,
+  listContacts,
   getContactById,
+  removeContact,
   addContact,
   updateContact,
-  removeContact,
-} = require("../../controller/contacts.js");
-const { validatePatch, validatePostPut } = require("./inputValidation.js");
-const guard = require("../../helpers/guard");
-
-router.get("/", guard, getAll).post("/", guard, validatePostPut, addContact);
+  updateStatusContact,
+} = require('../../controllers/contacts.js')
+const {
+  validateCreateContact,
+  validateUpdateContact,
+  validateUpdateFavorite,
+  validateObjectId,
+  validateQueryContact,
+} = require('../../validation/contacts.js')
+const guard = require('../../helpers/guard.js')
 
 router
-  .get("/:contactId", guard, getContactById)
-  .put("/:contactId", guard, validatePostPut, updateContact)
-  .delete("/:contactId", guard, removeContact)
-  .patch("/:contactId", guard, validatePatch, updateContact);
+  .get('/', guard, validateQueryContact, listContacts)
+  .post('/', guard, validateCreateContact, addContact)
 
-module.exports = router;
+router
+  .get('/:contactId', guard, validateObjectId, getContactById)
+  .put(
+    '/:contactId',
+    [guard, validateObjectId, validateUpdateContact],
+    updateContact,
+  )
+  .delete('/:contactId', guard, validateObjectId, removeContact)
+
+router.patch(
+  '/:contactId/favorite',
+  [guard, validateObjectId, validateUpdateFavorite],
+  updateStatusContact,
+)
+
+module.exports = router

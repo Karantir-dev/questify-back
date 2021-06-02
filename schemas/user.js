@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const { Schema, model } = mongoose
+const { SALT_FACTOR } = require('../helpers/constants')
 const bcrypt = require('bcryptjs')
 const { nanoid } = require('nanoid')
 
@@ -7,7 +8,7 @@ const userSchema = new Schema(
   {
     name: {
       type: String,
-      required: [true, 'Name is required'],
+      default: 'NONAME',
     },
     password: {
       type: String,
@@ -16,18 +17,19 @@ const userSchema = new Schema(
     email: {
       type: String,
       required: [true, 'Email is required'],
+      unique: true,
     },
     token: {
       type: String,
       default: null,
     },
-    verified: {
+    verify: {
       type: Boolean,
       default: false,
     },
-    verificationToken: {
+    verifyTokenEmail: {
       type: String,
-      required: [true, 'Verify token is required.'],
+      required: true,
       default: nanoid(),
     },
   },
@@ -36,16 +38,21 @@ const userSchema = new Schema(
 
 userSchema.pre('save', async function (next) {
   if (this.isModified('password')) {
-    const salt = await bcrypt.genSalt(5)
+    const salt = await bcrypt.genSalt(SALT_FACTOR)
     this.password = await bcrypt.hash(this.password, salt)
   }
   next()
 })
 
-userSchema.methods.isValidPassword = async function (password) {
-  return await bcrypt.compare(String(password), this.password)
+userSchema.path('email').validate(value => {
+  const re = /\S+@\S+\.\S+/
+  return re.test(String(value).toLowerCase())
+})
+
+userSchema.methods.validPassword = async function (password) {
+  return await bcrypt.compare(password, this.password)
 }
 
-const UserSchema = model('user', userSchema)
+const User = model('user', userSchema)
 
-module.exports = UserSchema
+module.exports = User
