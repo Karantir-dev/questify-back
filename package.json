@@ -26,7 +26,8 @@
     "multer": "1.4.2",
     "nanoid": "3.1.23",
     "passport": "0.4.1",
-    "passport-jwt": "4.0.0"
+    "passport-jwt": "4.0.0",
+    "cross-env": "7.0.3"
   },
   "devDependencies": {
     "@babel/core": "^7.13.14",
@@ -34,7 +35,7 @@
     "@babel/plugin-proposal-class-properties": "^7.13.0",
     "@babel/plugin-proposal-private-methods": "^7.13.0",
     "@babel/plugin-syntax-top-level-await": "^7.12.13",
-    "cross-env": "^7.0.3",
+    "cross-env": "7.0.3",
     "eslint": "^7.23.0",
     "eslint-config-prettier": "^8.2.0",
     "eslint-config-standard": "^16.0.2",

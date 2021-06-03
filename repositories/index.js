@@ -1,7 +1,7 @@
-const ContactsRepository = require('./contacts')
+const CardsRepository = require('./cards')
 const UsersRepository = require('./users')
 
 module.exports = {
-  ContactsRepository,
+  CardsRepository,
   UsersRepository,
 }

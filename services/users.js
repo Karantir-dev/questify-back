@@ -20,8 +20,8 @@ class UsersService {
     return data
   }
 
-  async createContact(body) {
-    const data = await this.repositories.users.createContact(body)
+  async createUser(body) {
+    const data = await this.repositories.users.createUser(body)
     return data
   }
 
