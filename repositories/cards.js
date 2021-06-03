@@ -1,8 +1,8 @@
-const Contact = require('../schemas/contact')
+const Card = require('../schemas/card')
 
-class ContactsRepository {
+class CardsRepository {
   constructor() {
-    this.model = Contact
+    this.model = Card
   }
 
   async getAll(userId, query) {
@@ -10,15 +10,18 @@ class ContactsRepository {
       sortBy,
       sortByDesc,
       filter,
-      favorite = null,
-      limit = 5,
+      isChallenge = null,
+      isCompleted = null,
+      limit = Number.MAX_SAFE_INTEGER,
       offset = 0,
     } = query
     const optionsSearch = { owner: userId }
-    if (favorite !== null) {
-      optionsSearch.favorite = favorite
+    if (isChallenge !== null) {
+      optionsSearch.isChallenge = isChallenge
     }
-
+    if (isCompleted !== null) {
+      optionsSearch.isCompleted = isCompleted
+    }
     const results = await this.model
       .paginate(optionsSearch, {
         limit,
@@ -48,12 +51,13 @@ class ContactsRepository {
   }
 
   async create(userId, body) {
-    const result = await this.model
-      .create({ ...body, owner: userId })
+    let result = await this.model.create({ ...body, owner: userId })
+    result = await result
       .populate({
         path: 'owner',
         select: 'name email -_id',
       })
+      .execPopulate()
     return result
   }
 
@@ -78,4 +82,4 @@ class ContactsRepository {
   }
 }
 
-module.exports = ContactsRepository
+module.exports = CardsRepository

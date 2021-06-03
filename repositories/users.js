@@ -21,7 +21,7 @@ class UsersRepository {
     return await this.model.findOne({ email })
   }
 
-  async createContact(data) {
+  async createUser(data) {
     // eslint-disable-next-line new-cap
     const user = new this.model(data)
     return await user.save()

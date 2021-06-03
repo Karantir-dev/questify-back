@@ -1,6 +1,5 @@
-const { AuthService, UsersService } = require('../services')
+const { AuthService, UsersService, EmailService } = require('../services')
 const { httpStatusCodes } = require('../helpers/httpstatuscodes')
-const EmailService = require('../services/email')
 
 const authService = new AuthService()
 const usersService = new UsersService()
@@ -18,7 +17,7 @@ const registration = async (req, res, next) => {
     })
   }
   try {
-    const newUser = await usersService.createContact(req.body)
+    const newUser = await usersService.createUser(req.body)
     const { id, name, email, verifyTokenEmail } = newUser
 
     try {
