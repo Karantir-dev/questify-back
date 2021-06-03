@@ -6,6 +6,9 @@ const rateLimit = require('express-rate-limit')
 const boolParser = require('express-query-boolean')
 const helmet = require('helmet')
 
+const swaggerUi = require('swagger-ui-express')
+const swaggerDocument = require('./swagger/swagger.json')
+
 const { httpStatusCodes } = require('./helpers/httpstatuscodes.js')
 
 const contactsRouter = require('./routes/contactsRoutes')
@@ -45,6 +48,7 @@ app.use(
 app.use(express.json({ limit: 100000 }))
 app.use(boolParser())
 
+app.use('/api', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 app.use('/contacts', contactsRouter)
 app.use('/users', usersRouter)
 
