@@ -1,0 +1,164 @@
+{
+  "title": "Questify",
+  "description": "Api-endpoints for Questify",
+  "contact": {
+    "name": "API Support",
+    "url": "http://www.example.com/support",
+    "email": "support@example.com"
+  },
+  "license": {
+    "name": "Apache 2.0",
+    "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+  },
+  "openapi": "3.0.0",
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Dev server (localhost:3000)"
+    },
+    {
+      "url": "https://goit23-project.herokuapp.com/",
+      "description": "Production server"
+    }
+  ],
+  "paths": {
+    "/users/signup": {
+      "post": {
+        "summary": "User signUp",
+        "description": "After registration, the user will receive an email with a link to confirm the email.",
+        "tags": [
+          "users"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  },
+                  "example": {
+                    "status": "success",
+                    "code": 201,
+                    "message": "registration done",
+                    "data": {
+                      "id": "60b91286b77146292485b08d",
+                      "email": "support@example.com"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "status": "error",
+                    "code": 409,
+                    "message": "This email is already use",
+                    "data": "Conflict"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/login": {
+      "post": {
+        "summary": "User login",
+        "tags": [
+          "users"
+        ]
+      }
+    },
+    "/users/logout": {
+      "post": {
+        "summary": "User logout",
+        "tags": [
+          "users"
+        ]
+      }
+    },
+    "/users/verify": {
+      "post": {
+        "summary": "Resend verification email",
+        "tags": [
+          "users"
+        ]
+      }
+    },
+    "/users/current": {
+      "get": {
+        "summary": "Get current user",
+        "tags": [
+          "users"
+        ]
+      }
+    },
+    "/users/verify/:token": {
+      "get": {
+        "summary": "Verify user by email",
+        "tags": [
+          "users"
+        ]
+      }
+    }
+  }
+}
