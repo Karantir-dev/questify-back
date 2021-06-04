@@ -11,8 +11,8 @@ const swaggerDocument = require('./swagger/swagger.json')
 
 const { httpStatusCodes } = require('./helpers/httpstatuscodes.js')
 
-const contactsRouter = require('./routes/contactsRoutes')
 const usersRouter = require('./routes/usersRoutes')
+const cardsRouter = require('./routes/cardsRoutes')
 
 const app = express()
 
@@ -48,15 +48,17 @@ app.use(
 app.use(express.json({ limit: 100000 }))
 app.use(boolParser())
 
+
 app.use('/api', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
-app.use('/contacts', contactsRouter)
+
 app.use('/users', usersRouter)
+app.use('/cards', cardsRouter)
 
 app.use((req, res) => {
   res.status(httpStatusCodes.NOT_FOUND).json({
     status: 'error',
     code: httpStatusCodes.NOT_FOUND,
-    message: `Use api on routes ${req.baseUrl}/contacts or ${req.baseUrl}/users`,
+    message: `Use api on routes ${req.baseUrl}/cards or ${req.baseUrl}/users`,
     data: 'Not Found',
   })
 })
