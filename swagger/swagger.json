@@ -687,7 +687,7 @@
                   "example": {
                     "status": "success",
                     "code": 201,
-                    "message": "card success created",
+                    "message": "OK",
                     "data": {
                       "cards": [
                         {
@@ -764,6 +764,97 @@
               }
             }
           }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "text": {
+                          "type": "string"
+                        },
+                        "isChallenge": {
+                          "type": "boolean"
+                        },
+                        "isCompleted": {
+                          "type": "boolean"
+                        },
+                        "difficulty": {
+                          "type": "string"
+                        },
+                        "category": {
+                          "type": "string"
+                        },
+                        "deadline": {
+                          "type": "date-time"
+                        }
+                      }
+                    }
+                  },
+                  "example": {
+                    "status": "success",
+                    "code": 200,
+                    "message": "card success updated",
+                    "data": {
+                      "id": "60b91286b77146292485b08d",
+                      "difficulty": "normal",
+                      "isChallenge": false,
+                      "text": "Buy bread",
+                      "category": "HEALTH",
+                      "isCompleted": false,
+                      "deadline": "Sun Jun 06 2021 16:02:12 GMT+0300 (Eastern European Summer Time)"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "status": "error",
+                    "code": 404,
+                    "message": "Not found card",
+                    "data": "Not Found"
+                  }
+                }
+              }
+            }
+          }
         }
       },
       "get": {
@@ -790,7 +881,98 @@
               "type": "string"
             }
           }
-        ]
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "text": {
+                          "type": "string"
+                        },
+                        "isChallenge": {
+                          "type": "boolean"
+                        },
+                        "isCompleted": {
+                          "type": "boolean"
+                        },
+                        "difficulty": {
+                          "type": "string"
+                        },
+                        "category": {
+                          "type": "string"
+                        },
+                        "deadline": {
+                          "type": "date-time"
+                        }
+                      }
+                    }
+                  },
+                  "example": {
+                    "status": "success",
+                    "code": 200,
+                    "message": "card success updated",
+                    "data": {
+                      "id": "60b91286b77146292485b08d",
+                      "difficulty": "normal",
+                      "isChallenge": false,
+                      "text": "Buy bread",
+                      "category": "HEALTH",
+                      "isCompleted": false,
+                      "deadline": "Sun Jun 06 2021 16:02:12 GMT+0300 (Eastern European Summer Time)"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "status": "error",
+                    "code": 404,
+                    "message": "Not found card",
+                    "data": "Not Found"
+                  }
+                }
+              }
+            }
+          }
+        }
       },
       "delete": {
         "summary": "Delete card by id",
@@ -816,7 +998,98 @@
               "type": "string"
             }
           }
-        ]
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "text": {
+                          "type": "string"
+                        },
+                        "isChallenge": {
+                          "type": "boolean"
+                        },
+                        "isCompleted": {
+                          "type": "boolean"
+                        },
+                        "difficulty": {
+                          "type": "string"
+                        },
+                        "category": {
+                          "type": "string"
+                        },
+                        "deadline": {
+                          "type": "date-time"
+                        }
+                      }
+                    }
+                  },
+                  "example": {
+                    "status": "DELETE",
+                    "code": 200,
+                    "message": "card success deleted",
+                    "data": {
+                      "id": "60b91286b77146292485b08d",
+                      "difficulty": "normal",
+                      "isChallenge": false,
+                      "text": "Buy bread",
+                      "category": "HEALTH",
+                      "isCompleted": false,
+                      "deadline": "Sun Jun 06 2021 16:02:12 GMT+0300 (Eastern European Summer Time)"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "status": "error",
+                    "code": 404,
+                    "message": "Not found card",
+                    "data": "Not Found"
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/cards/{cardId}/complete": {
@@ -844,7 +1117,113 @@
               "type": "string"
             }
           }
-        ]
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "isCompleted": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "text": {
+                          "type": "string"
+                        },
+                        "isChallenge": {
+                          "type": "boolean"
+                        },
+                        "isCompleted": {
+                          "type": "boolean"
+                        },
+                        "difficulty": {
+                          "type": "string"
+                        },
+                        "category": {
+                          "type": "string"
+                        },
+                        "deadline": {
+                          "type": "date-time"
+                        }
+                      }
+                    }
+                  },
+                  "example": {
+                    "status": "success",
+                    "code": 200,
+                    "message": "card status is update",
+                    "data": {
+                      "id": "60b91286b77146292485b08d",
+                      "difficulty": "normal",
+                      "isChallenge": false,
+                      "text": "Buy bread",
+                      "category": "HEALTH",
+                      "isCompleted": false,
+                      "deadline": "Sun Jun 06 2021 16:02:12 GMT+0300 (Eastern European Summer Time)"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "status": "error",
+                    "code": 404,
+                    "message": "Not found card",
+                    "data": "Not Found"
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/cards/{cardId}/challenge": {
@@ -872,7 +1251,113 @@
               "type": "string"
             }
           }
-        ]
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "isChallenge": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "text": {
+                          "type": "string"
+                        },
+                        "isChallenge": {
+                          "type": "boolean"
+                        },
+                        "isCompleted": {
+                          "type": "boolean"
+                        },
+                        "difficulty": {
+                          "type": "string"
+                        },
+                        "category": {
+                          "type": "string"
+                        },
+                        "deadline": {
+                          "type": "date-time"
+                        }
+                      }
+                    }
+                  },
+                  "example": {
+                    "status": "success",
+                    "code": 200,
+                    "message": "card status is update",
+                    "data": {
+                      "id": "60b91286b77146292485b08d",
+                      "difficulty": "normal",
+                      "isChallenge": false,
+                      "text": "Buy bread",
+                      "category": "HEALTH",
+                      "isCompleted": false,
+                      "deadline": "Sun Jun 06 2021 16:02:12 GMT+0300 (Eastern European Summer Time)"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "status": "error",
+                    "code": 404,
+                    "message": "Not found card",
+                    "data": "Not Found"
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
   }
