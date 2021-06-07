@@ -58,7 +58,7 @@ app.use((req, res) => {
   res.status(httpStatusCodes.NOT_FOUND).json({
     status: 'error',
     code: httpStatusCodes.NOT_FOUND,
-    message: `Use api on routes ${req.baseUrl}/cards or ${req.baseUrl}/users`,
+    message: `Use api on routes ${req.baseUrl}/cards or ${req.baseUrl}/users.`,
     data: 'Not Found',
   })
 })
