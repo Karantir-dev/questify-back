@@ -31,7 +31,7 @@ const registration = async (req, res, next) => {
       status: 'success',
       code: httpStatusCodes.CREATED,
       message: 'registration done',
-      data: {
+      result: {
         id,
         email,
       },
@@ -50,7 +50,7 @@ const login = async (req, res, next) => {
         status: 'success',
         code: httpStatusCodes.OK,
         message: 'login done',
-        data: {
+        result: {
           token,
           user: { name: user.name, email: user.email },
         },
@@ -78,13 +78,14 @@ const getCurrent = async (req, res, next) => {
     const token = await req.user?.token
     const user = await usersService.findByToken(token)
     if (user) {
-      const { email } = user
+      const { email, name } = user
       return res.status(httpStatusCodes.OK).json({
         status: 'success',
         code: httpStatusCodes.OK,
         message: 'current user info',
-        data: {
+        result: {
           email,
+          name
         },
       })
     } else {
