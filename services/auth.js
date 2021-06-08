@@ -19,7 +19,7 @@ class AuthService {
     const payload = { id }
     const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '6h' })
     await this.repositories.users.updateToken(id, token)
-    return token
+    return { token, user }
   }
 
   async logout(id) {
