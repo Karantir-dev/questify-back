@@ -44,7 +44,7 @@ const registration = async (req, res, next) => {
 const login = async (req, res, next) => {
   const { email, password } = req.body
   try {
-    const token = await authService.login({ email, password })
+    const { token, user } = await authService.login({ email, password })
     if (token) {
       return res.status(httpStatusCodes.OK).json({
         status: 'success',
@@ -52,6 +52,7 @@ const login = async (req, res, next) => {
         message: 'login done',
         data: {
           token,
+          user: { name: user.name, email: user.email },
         },
       })
     }
