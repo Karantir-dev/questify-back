@@ -32,7 +32,7 @@ const listCards = async (req, res, next) => {
       status: 'success',
       code: httpStatusCodes.OK,
       message: 'OK',
-      data: {
+      result: {
         cards,
       },
     })
@@ -60,7 +60,7 @@ const getCardById = async (req, res, next) => {
         status: 'success',
         code: httpStatusCodes.OK,
         message: 'OK',
-        data: {
+        result: {
           id,
           difficulty,
           isChallenge,
@@ -75,7 +75,7 @@ const getCardById = async (req, res, next) => {
         status: 'error',
         code: httpStatusCodes.NOT_FOUND,
         message: 'Not found card',
-        data: 'Not Found',
+        result: 'Not Found',
       })
     }
   } catch (error) {
@@ -99,7 +99,7 @@ const addCard = async (req, res, next) => {
       status: 'success',
       code: httpStatusCodes.CREATED,
       message: 'card success created',
-      data: {
+      result: {
         id,
         difficulty,
         isChallenge,
@@ -133,7 +133,7 @@ const removeCard = async (req, res, next) => {
         status: 'DELETE',
         code: httpStatusCodes.OK,
         message: 'card success deleted',
-        data: {
+        result: {
           id,
           difficulty,
           isChallenge,
@@ -148,7 +148,7 @@ const removeCard = async (req, res, next) => {
         status: 'error',
         code: httpStatusCodes.NOT_FOUND,
         message: 'Not found card',
-        data: 'Not Found',
+        result: 'Not Found',
       })
     }
   } catch (error) {
@@ -175,7 +175,7 @@ const updateCard = async (req, res, next) => {
         status: 'success',
         code: httpStatusCodes.OK,
         message: 'card success updated',
-        data: {
+        result: {
           id,
           difficulty,
           isChallenge,
@@ -190,7 +190,7 @@ const updateCard = async (req, res, next) => {
         status: 'error',
         code: httpStatusCodes.NOT_FOUND,
         message: 'Not found card',
-        data: 'Not Found',
+        result: 'Not Found',
       })
     }
   } catch (error) {
@@ -217,7 +217,7 @@ const updateStatusCard = async (req, res, next) => {
         status: 'success',
         code: httpStatusCodes.OK,
         message: 'card status is update',
-        data: {
+        result: {
           id,
           difficulty,
           isChallenge,
@@ -232,7 +232,7 @@ const updateStatusCard = async (req, res, next) => {
         status: 'error',
         code: httpStatusCodes.NOT_FOUND,
         message: 'Not found card',
-        data: 'Not Found',
+        result: 'Not Found',
       })
     }
   } catch (error) {

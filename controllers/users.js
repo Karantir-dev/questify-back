@@ -13,7 +13,7 @@ const registration = async (req, res, next) => {
       status: 'error',
       code: httpStatusCodes.CONFLICT,
       message: 'This email is already use',
-      data: 'Conflict',
+      result: 'Conflict',
     })
   }
   try {
@@ -31,7 +31,7 @@ const registration = async (req, res, next) => {
       status: 'success',
       code: httpStatusCodes.CREATED,
       message: 'registration done',
-      data: {
+      result: {
         id,
         email,
       },
@@ -42,16 +42,21 @@ const registration = async (req, res, next) => {
 }
 
 const login = async (req, res, next) => {
-  const { email, password } = req.body
+  const { email, password, name } = req.body
+  console.log(req.body)
   try {
-    const token = await authService.login({ email, password })
+    const token = await authService.login({ email, password, name })
     if (token) {
       return res.status(httpStatusCodes.OK).json({
         status: 'success',
         code: httpStatusCodes.OK,
         message: 'login done',
-        data: {
+        result: {
           token,
+          user: {
+            email,
+            name,
+          },
         },
       })
     }
@@ -59,7 +64,7 @@ const login = async (req, res, next) => {
       status: 'error',
       code: httpStatusCodes.UNAUTHORIZED,
       message: 'Invalid credentials',
-      data: 'Unauthorized',
+      result: 'Unauthorized',
     })
   } catch (error) {
     next(error)
@@ -77,13 +82,14 @@ const getCurrent = async (req, res, next) => {
     const token = await req.user?.token
     const user = await usersService.findByToken(token)
     if (user) {
-      const { email } = user
+      const { email, name } = user
       return res.status(httpStatusCodes.OK).json({
         status: 'success',
         code: httpStatusCodes.OK,
         message: 'current user info',
-        data: {
+        result: {
           email,
+          name,
         },
       })
     } else {
@@ -91,7 +97,7 @@ const getCurrent = async (req, res, next) => {
         status: 'error',
         code: httpStatusCodes.NOT_FOUND,
         message: 'Not Found User',
-        data: 'Not Found',
+        result: 'Not Found',
       })
     }
   } catch (error) {
@@ -113,7 +119,7 @@ const verifyUser = async (req, res, next) => {
         status: 'error',
         code: httpStatusCodes.BAD_REQUEST,
         message: "Your verification token isn't valid. Contact to support",
-        data: 'Unauthorized',
+        result: 'Unauthorized',
       })
     }
   } catch (error) {
@@ -132,7 +138,7 @@ const repeatEmailVerify = async (req, res, next) => {
         status: 'success',
         code: httpStatusCodes.OK,
         message: 'Verification email resubmitted',
-        data: {
+        result: {
           email,
         },
       })
@@ -141,7 +147,7 @@ const repeatEmailVerify = async (req, res, next) => {
         status: 'error',
         code: httpStatusCodes.NOT_FOUND,
         message: 'User not found',
-        data: 'Not Found',
+        result: 'Not Found',
       })
     }
   } catch (error) {

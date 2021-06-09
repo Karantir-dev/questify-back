@@ -17,7 +17,8 @@ const formatsLogger = app.get('env') === 'development' ? 'dev' : 'short'
 
 app.use(helmet())
 
-app.use(logger(formatsLogger))
+app.get('env') !== 'test' && app.use(logger(formatsLogger))
+
 app.use(express.static('public'))
 
 const limiter = rateLimit({
@@ -49,6 +50,7 @@ app.use('/users', usersRouter)
 app.use('/cards', cardsRouter)
 
 app.use((req, res) => {
+  console.log(req)
   res.status(httpStatusCodes.NOT_FOUND).json({
     status: 'error',
     code: httpStatusCodes.NOT_FOUND,
