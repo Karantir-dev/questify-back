@@ -1,0 +1,1364 @@
+{
+  "title": "Questify",
+  "description": "Api-endpoints for Questify",
+  "contact": {
+    "name": "API Support",
+    "url": "http://www.example.com/support",
+    "email": "support@example.com"
+  },
+  "license": {
+    "name": "Apache 2.0",
+    "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+  },
+  "openapi": "3.0.0",
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Dev server (localhost:3000)"
+    },
+    {
+      "url": "https://goit23-project.herokuapp.com/",
+      "description": "Production server"
+    }
+  ],
+  "paths": {
+    "/users/signup": {
+      "post": {
+        "summary": "User signUp",
+        "description": "After registration, the user will receive an email with a link to confirm the email.",
+        "tags": [
+          "users"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  },
+                  "example": {
+                    "status": "success",
+                    "code": 201,
+                    "message": "registration done",
+                    "data": {
+                      "id": "60b91286b77146292485b08d",
+                      "email": "support@example.com"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "status": "error",
+                    "code": 409,
+                    "message": "This email is already use",
+                    "data": "Conflict"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/login": {
+      "post": {
+        "summary": "User login",
+        "tags": [
+          "users"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "token": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  },
+                  "example": {
+                    "status": "success",
+                    "code": 200,
+                    "message": "login done",
+                    "data": {
+                      "token": "60b91286b77146292485b08d"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "status": "error",
+                    "code": 401,
+                    "message": "Invalid credentials",
+                    "data": "Unauthorized"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/logout": {
+      "post": {
+        "summary": "User logout",
+        "tags": [
+          "users"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "description": "Bearer token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {},
+                  "example": {}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/verify": {
+      "post": {
+        "summary": "Resend verification email",
+        "tags": [
+          "users"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "email": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  },
+                  "example": {
+                    "status": "success",
+                    "code": 200,
+                    "message": "Verification email resubmitted",
+                    "data": {
+                      "email": "support@example.com"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "status": "error",
+                    "code": 404,
+                    "message": "User not found",
+                    "data": "Not Found"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/current": {
+      "get": {
+        "summary": "Get current user",
+        "tags": [
+          "users"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "user": {
+                    "type": "object",
+                    "properties": {
+                      "token": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "email": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  },
+                  "example": {
+                    "status": "success",
+                    "code": 200,
+                    "message": "current user info",
+                    "data": {
+                      "email": "support@example.com"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "status": "error",
+                    "code": 404,
+                    "message": "Not Found User",
+                    "data": "Not Found"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/verify/{token}": {
+      "get": {
+        "summary": "Verify user email",
+        "tags": [
+          "users"
+        ],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "path",
+            "description": "Verification email token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "status": "success",
+                    "code": 200,
+                    "message": "Verification done"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "status": "error",
+                    "code": 401,
+                    "message": "Your verification token isn't valid. Contact to support",
+                    "data": "Unauthorized"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cards/": {
+      "post": {
+        "summary": "Add card",
+        "tags": [
+          "cards"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "description": "Bearer token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string"
+                  },
+                  "isChallenge": {
+                    "type": "boolean"
+                  },
+                  "isCompleted": {
+                    "type": "boolean"
+                  },
+                  "difficulty": {
+                    "type": "string"
+                  },
+                  "category": {
+                    "type": "string"
+                  },
+                  "deadline": {
+                    "type": "date-time"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "text": {
+                          "type": "string"
+                        },
+                        "isChallenge": {
+                          "type": "boolean"
+                        },
+                        "isCompleted": {
+                          "type": "boolean"
+                        },
+                        "difficulty": {
+                          "type": "string"
+                        },
+                        "category": {
+                          "type": "string"
+                        },
+                        "deadline": {
+                          "type": "date-time"
+                        }
+                      }
+                    }
+                  },
+                  "example": {
+                    "status": "success",
+                    "code": 201,
+                    "message": "card success created",
+                    "data": {
+                      "id": "60b91286b77146292485b08d",
+                      "difficulty": "normal",
+                      "isChallenge": false,
+                      "text": "Buy bread",
+                      "category": "HEALTH",
+                      "isCompleted": false,
+                      "deadline": "Sun Jun 06 2021 16:02:12 GMT+0300 (Eastern European Summer Time)"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Get cards",
+        "tags": [
+          "cards"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "description": "Bearer token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "properties": {
+                        "cards": {
+                          "type": [
+                            "object"
+                          ],
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "text": {
+                              "type": "string"
+                            },
+                            "isChallenge": {
+                              "type": "boolean"
+                            },
+                            "isCompleted": {
+                              "type": "boolean"
+                            },
+                            "difficulty": {
+                              "type": "string"
+                            },
+                            "category": {
+                              "type": "string"
+                            },
+                            "deadline": {
+                              "type": "date-time"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "example": {
+                    "status": "success",
+                    "code": 201,
+                    "message": "OK",
+                    "data": {
+                      "cards": [
+                        {
+                          "id": "60b91286b77146292485b08d",
+                          "difficulty": "normal",
+                          "isChallenge": false,
+                          "text": "Buy bread",
+                          "category": "HEALTH",
+                          "isCompleted": false,
+                          "deadline": "Sun Jun 06 2021 16:02:12 GMT+0300 (Eastern European Summer Time)"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cards/{cardId}": {
+      "put": {
+        "summary": "Update card by id",
+        "tags": [
+          "cards"
+        ],
+        "parameters": [
+          {
+            "name": "cardId",
+            "in": "path",
+            "description": "Card id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "description": "Bearer token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string"
+                  },
+                  "isChallenge": {
+                    "type": "boolean"
+                  },
+                  "isCompleted": {
+                    "type": "boolean"
+                  },
+                  "difficulty": {
+                    "type": "string"
+                  },
+                  "category": {
+                    "type": "string"
+                  },
+                  "deadline": {
+                    "type": "date-time"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "text": {
+                          "type": "string"
+                        },
+                        "isChallenge": {
+                          "type": "boolean"
+                        },
+                        "isCompleted": {
+                          "type": "boolean"
+                        },
+                        "difficulty": {
+                          "type": "string"
+                        },
+                        "category": {
+                          "type": "string"
+                        },
+                        "deadline": {
+                          "type": "date-time"
+                        }
+                      }
+                    }
+                  },
+                  "example": {
+                    "status": "success",
+                    "code": 200,
+                    "message": "card success updated",
+                    "data": {
+                      "id": "60b91286b77146292485b08d",
+                      "difficulty": "normal",
+                      "isChallenge": false,
+                      "text": "Buy bread",
+                      "category": "HEALTH",
+                      "isCompleted": false,
+                      "deadline": "Sun Jun 06 2021 16:02:12 GMT+0300 (Eastern European Summer Time)"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "status": "error",
+                    "code": 404,
+                    "message": "Not found card",
+                    "data": "Not Found"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Get card by id",
+        "tags": [
+          "cards"
+        ],
+        "parameters": [
+          {
+            "name": "cardId",
+            "in": "path",
+            "description": "Card id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "description": "Bearer token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "text": {
+                          "type": "string"
+                        },
+                        "isChallenge": {
+                          "type": "boolean"
+                        },
+                        "isCompleted": {
+                          "type": "boolean"
+                        },
+                        "difficulty": {
+                          "type": "string"
+                        },
+                        "category": {
+                          "type": "string"
+                        },
+                        "deadline": {
+                          "type": "date-time"
+                        }
+                      }
+                    }
+                  },
+                  "example": {
+                    "status": "success",
+                    "code": 200,
+                    "message": "card success updated",
+                    "data": {
+                      "id": "60b91286b77146292485b08d",
+                      "difficulty": "normal",
+                      "isChallenge": false,
+                      "text": "Buy bread",
+                      "category": "HEALTH",
+                      "isCompleted": false,
+                      "deadline": "Sun Jun 06 2021 16:02:12 GMT+0300 (Eastern European Summer Time)"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "status": "error",
+                    "code": 404,
+                    "message": "Not found card",
+                    "data": "Not Found"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete card by id",
+        "tags": [
+          "cards"
+        ],
+        "parameters": [
+          {
+            "name": "cardId",
+            "in": "path",
+            "description": "Card id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "description": "Bearer token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "text": {
+                          "type": "string"
+                        },
+                        "isChallenge": {
+                          "type": "boolean"
+                        },
+                        "isCompleted": {
+                          "type": "boolean"
+                        },
+                        "difficulty": {
+                          "type": "string"
+                        },
+                        "category": {
+                          "type": "string"
+                        },
+                        "deadline": {
+                          "type": "date-time"
+                        }
+                      }
+                    }
+                  },
+                  "example": {
+                    "status": "DELETE",
+                    "code": 200,
+                    "message": "card success deleted",
+                    "data": {
+                      "id": "60b91286b77146292485b08d",
+                      "difficulty": "normal",
+                      "isChallenge": false,
+                      "text": "Buy bread",
+                      "category": "HEALTH",
+                      "isCompleted": false,
+                      "deadline": "Sun Jun 06 2021 16:02:12 GMT+0300 (Eastern European Summer Time)"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "status": "error",
+                    "code": 404,
+                    "message": "Not found card",
+                    "data": "Not Found"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cards/{cardId}/complete": {
+      "patch": {
+        "summary": "Complete card by id",
+        "tags": [
+          "cards"
+        ],
+        "parameters": [
+          {
+            "name": "cardId",
+            "in": "path",
+            "description": "Card id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "description": "Bearer token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "isCompleted": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "text": {
+                          "type": "string"
+                        },
+                        "isChallenge": {
+                          "type": "boolean"
+                        },
+                        "isCompleted": {
+                          "type": "boolean"
+                        },
+                        "difficulty": {
+                          "type": "string"
+                        },
+                        "category": {
+                          "type": "string"
+                        },
+                        "deadline": {
+                          "type": "date-time"
+                        }
+                      }
+                    }
+                  },
+                  "example": {
+                    "status": "success",
+                    "code": 200,
+                    "message": "card status is update",
+                    "data": {
+                      "id": "60b91286b77146292485b08d",
+                      "difficulty": "normal",
+                      "isChallenge": false,
+                      "text": "Buy bread",
+                      "category": "HEALTH",
+                      "isCompleted": false,
+                      "deadline": "Sun Jun 06 2021 16:02:12 GMT+0300 (Eastern European Summer Time)"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "status": "error",
+                    "code": 404,
+                    "message": "Not found card",
+                    "data": "Not Found"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cards/{cardId}/challenge": {
+      "patch": {
+        "summary": "Update card status by id",
+        "tags": [
+          "cards"
+        ],
+        "parameters": [
+          {
+            "name": "cardId",
+            "in": "path",
+            "description": "Card id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "description": "Bearer token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "isChallenge": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "text": {
+                          "type": "string"
+                        },
+                        "isChallenge": {
+                          "type": "boolean"
+                        },
+                        "isCompleted": {
+                          "type": "boolean"
+                        },
+                        "difficulty": {
+                          "type": "string"
+                        },
+                        "category": {
+                          "type": "string"
+                        },
+                        "deadline": {
+                          "type": "date-time"
+                        }
+                      }
+                    }
+                  },
+                  "example": {
+                    "status": "success",
+                    "code": 200,
+                    "message": "card status is update",
+                    "data": {
+                      "id": "60b91286b77146292485b08d",
+                      "difficulty": "normal",
+                      "isChallenge": false,
+                      "text": "Buy bread",
+                      "category": "HEALTH",
+                      "isCompleted": false,
+                      "deadline": "Sun Jun 06 2021 16:02:12 GMT+0300 (Eastern European Summer Time)"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "status": "error",
+                    "code": 404,
+                    "message": "Not found card",
+                    "data": "Not Found"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

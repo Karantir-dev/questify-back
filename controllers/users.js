@@ -45,7 +45,7 @@ const login = async (req, res, next) => {
   const { email, password, name } = req.body
   console.log(req.body)
   try {
-    const token = await authService.login({ email, password, name })
+    const { token, user } = await authService.login({ email, password })
     if (token) {
       return res.status(httpStatusCodes.OK).json({
         status: 'success',
@@ -53,10 +53,7 @@ const login = async (req, res, next) => {
         message: 'login done',
         result: {
           token,
-          user: {
-            email,
-            name,
-          },
+          user: { name: user.name, email: user.email },
         },
       })
     }
@@ -89,7 +86,7 @@ const getCurrent = async (req, res, next) => {
         message: 'current user info',
         result: {
           email,
-          name,
+          name
         },
       })
     } else {
