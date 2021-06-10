@@ -22,21 +22,19 @@ class CardsRepository {
     if (isCompleted !== null) {
       optionsSearch.isCompleted = isCompleted
     }
-    const results = await this.model
-      .paginate(optionsSearch, {
-        limit,
-        offset,
-        sort: {
-          ...(sortBy ? { [`${sortBy}`]: 1 } : {}),
-          ...(sortByDesc ? { [`${sortByDesc}`]: -1 } : {}),
-        },
-        select: filter ? filter.split('|').join(' ') : '',
-        populate: {
-          path: 'owner',
-          select: 'name email -_id',
-        },
-      })
-      .then(({ docs }) => docs)
+    const results = await this.model.paginate(optionsSearch, {
+      limit,
+      offset,
+      sort: {
+        ...(sortBy ? { [`${sortBy}`]: 1 } : {}),
+        ...(sortByDesc ? { [`${sortByDesc}`]: -1 } : {}),
+      },
+      select: filter ? filter.split('|').join(' ') : '',
+      populate: {
+        path: 'owner',
+        select: 'name email -_id',
+      },
+    })
     return results
   }
 

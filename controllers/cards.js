@@ -6,8 +6,8 @@ const listCards = async (req, res, next) => {
   try {
     const userId = req.user?.id
     const query = req.query
-    const data = await cardsService.getAll(userId, query)
-    const cards = data.map(
+    const { docs } = await cardsService.getAll(userId, query)
+    const cards = docs.map(
       ({
         id,
         text,

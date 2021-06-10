@@ -8,7 +8,7 @@ const guard = (req, res, next) => {
       ? req.get('Authorization')?.split(' ')[1]
       : null
     if (err || !user || token !== user.token) {
-      return next({
+      return res.status(httpStatusCodes.FORBIDDEN).json({
         status: 'error',
         code: httpStatusCodes.FORBIDDEN,
         message: 'Access denied',

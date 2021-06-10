@@ -20,10 +20,11 @@ const cards = [
 ]
 
 const newCard = {
-  text: 'Test card',
+  text: 'Test new card',
   category: 'work',
   deadline: '1632724724679',
-  isChallenge: true,
+  isChallenge: false,
+  isCompleted: false,
 }
 
 const User = {

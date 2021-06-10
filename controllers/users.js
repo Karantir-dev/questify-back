@@ -42,8 +42,7 @@ const registration = async (req, res, next) => {
 }
 
 const login = async (req, res, next) => {
-  const { email, password, name } = req.body
-  console.log(req.body)
+  const { email, password } = req.body
   try {
     const { token, user } = await authService.login({ email, password })
     if (token) {
@@ -86,7 +85,7 @@ const getCurrent = async (req, res, next) => {
         message: 'current user info',
         result: {
           email,
-          name
+          name,
         },
       })
     } else {
