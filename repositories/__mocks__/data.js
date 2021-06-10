@@ -22,7 +22,7 @@ const cards = [
 const newCard = {
   text: 'Test new card',
   category: 'work',
-  deadline: '1632724724679',
+  deadline: '1732724724679',
   isChallenge: false,
   isCompleted: false,
 }

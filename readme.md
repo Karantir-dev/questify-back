@@ -1,6 +1,6 @@
 # GoIT 23. REST API для работы с коллекцией карточек
 
-## 1. Логика работы с пользователем. По адресу https://goit23-project.herokuapp.com/
+## 1. Логика работы с пользователем. По адресу https://goit23-project.herokuapp.com/api/
 
 ### 1.1 Регистрация
 
