@@ -13,7 +13,7 @@ const registration = async (req, res, next) => {
       status: 'error',
       code: httpStatusCodes.CONFLICT,
       message: 'This email is already use',
-      data: 'Conflict',
+      result: 'Conflict',
     })
   }
   try {
@@ -60,7 +60,7 @@ const login = async (req, res, next) => {
       status: 'error',
       code: httpStatusCodes.UNAUTHORIZED,
       message: 'Invalid credentials',
-      data: 'Unauthorized',
+      result: 'Unauthorized',
     })
   } catch (error) {
     next(error)
@@ -85,7 +85,7 @@ const getCurrent = async (req, res, next) => {
         message: 'current user info',
         result: {
           email,
-          name
+          name,
         },
       })
     } else {
@@ -93,7 +93,7 @@ const getCurrent = async (req, res, next) => {
         status: 'error',
         code: httpStatusCodes.NOT_FOUND,
         message: 'Not Found User',
-        data: 'Not Found',
+        result: 'Not Found',
       })
     }
   } catch (error) {
@@ -115,7 +115,7 @@ const verifyUser = async (req, res, next) => {
         status: 'error',
         code: httpStatusCodes.BAD_REQUEST,
         message: "Your verification token isn't valid. Contact to support",
-        data: 'Unauthorized',
+        result: 'Unauthorized',
       })
     }
   } catch (error) {
@@ -134,7 +134,7 @@ const repeatEmailVerify = async (req, res, next) => {
         status: 'success',
         code: httpStatusCodes.OK,
         message: 'Verification email resubmitted',
-        data: {
+        result: {
           email,
         },
       })
@@ -143,7 +143,7 @@ const repeatEmailVerify = async (req, res, next) => {
         status: 'error',
         code: httpStatusCodes.NOT_FOUND,
         message: 'User not found',
-        data: 'Not Found',
+        result: 'Not Found',
       })
     }
   } catch (error) {

@@ -20,7 +20,8 @@ const formatsLogger = app.get('env') === 'development' ? 'dev' : 'short'
 
 app.use(helmet())
 
-app.use(logger(formatsLogger))
+app.get('env') !== 'test' && app.use(logger(formatsLogger))
+
 app.use(express.static('public'))
 
 const limiter = rateLimit({
@@ -47,7 +48,6 @@ app.use(
 )
 app.use(express.json({ limit: 100000 }))
 app.use(boolParser())
-
 
 app.use('/api', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
