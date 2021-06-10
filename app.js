@@ -49,14 +49,12 @@ app.use(
 app.use(express.json({ limit: 100000 }))
 app.use(boolParser())
 
-
 app.use('/api', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
 app.use('/users', usersRouter)
 app.use('/cards', cardsRouter)
 
 app.use((req, res) => {
-  console.log(req)
   res.status(httpStatusCodes.NOT_FOUND).json({
     status: 'error',
     code: httpStatusCodes.NOT_FOUND,
