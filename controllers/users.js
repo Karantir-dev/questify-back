@@ -45,7 +45,8 @@ const login = async (req, res, next) => {
   const { email, password } = req.body
   try {
     const { token, user } = await authService.login({ email, password })
-    if (token) {
+    const { verify } = user
+    if (verify && token) {
       return res.status(httpStatusCodes.OK).json({
         status: 'success',
         code: httpStatusCodes.OK,
@@ -59,7 +60,7 @@ const login = async (req, res, next) => {
     next({
       status: 'error',
       code: httpStatusCodes.UNAUTHORIZED,
-      message: 'Invalid credentials',
+      message: 'Invalid credentials or not verified',
       result: 'Unauthorized',
     })
   } catch (error) {
