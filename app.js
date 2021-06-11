@@ -32,7 +32,7 @@ const limiter = rateLimit({
       status: 'error',
       code: httpStatusCodes.TOO_MANY_REQUESTS,
       message: 'Too Many Requests',
-      data: 'HTTP_TOO_MANY_REQUESTS',
+      result: 'HTTP_TOO_MANY_REQUESTS',
     })
   },
 })
@@ -59,7 +59,7 @@ app.use((req, res) => {
     status: 'error',
     code: httpStatusCodes.NOT_FOUND,
     message: `Use api on routes ${req.baseUrl}/cards or ${req.baseUrl}/users.`,
-    data: 'Not Found',
+    result: 'Not Found',
   })
 })
 
@@ -69,7 +69,7 @@ app.use((err, req, res, next) => {
     status: err.code === 500 ? 'fail' : 'error',
     code: err.code,
     message: err.message,
-    data: err.code === 500 ? 'Internal Server Error' : err.data,
+    result: err.code === 500 ? 'Internal Server Error' : err.result,
   })
 })
 

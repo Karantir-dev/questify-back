@@ -21,7 +21,7 @@ passport.use(
             status: 'error',
             code: httpStatusCodes.NOT_FOUND,
             message: 'Not Found User',
-            data: 'Not Found',
+            result: 'Not Found',
           }),
         )
       }

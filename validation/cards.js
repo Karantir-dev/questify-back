@@ -79,7 +79,7 @@ const validate = (schema, body, next) => {
       status: 'error',
       code: httpStatusCodes.BAD_REQUEST,
       message: `Field: ${message.replace(/"/g, '')}`,
-      data: 'Bad Request',
+      result: 'Bad Request',
     })
   }
   return next()
@@ -111,7 +111,7 @@ module.exports.validateObjectId = (req, res, next) => {
       status: 'error',
       code: httpStatusCodes.BAD_REQUEST,
       message: 'Invalid Object Id',
-      data: 'Bad Request',
+      result: 'Bad Request',
     })
   }
   return next()

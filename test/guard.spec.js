@@ -35,7 +35,7 @@ describe('Unit test: helper/guard', () => {
       status: 'error',
       code: httpStatusCodes.FORBIDDEN,
       message: 'Access denied',
-      data: 'Forbidden',
+      result: 'Forbidden',
     })
   })
 
@@ -53,7 +53,7 @@ describe('Unit test: helper/guard', () => {
       status: 'error',
       code: httpStatusCodes.FORBIDDEN,
       message: 'Access denied',
-      data: 'Forbidden',
+      result: 'Forbidden',
     })
     expect(next).toHaveBeenCalled()
   })
@@ -72,7 +72,7 @@ describe('Unit test: helper/guard', () => {
       status: 'error',
       code: httpStatusCodes.FORBIDDEN,
       message: 'Access denied',
-      data: 'Forbidden',
+      result: 'Forbidden',
     })
     expect(next).toHaveBeenCalled()
   })

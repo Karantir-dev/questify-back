@@ -12,7 +12,7 @@ const guard = (req, res, next) => {
         status: 'error',
         code: httpStatusCodes.FORBIDDEN,
         message: 'Access denied',
-        data: 'Forbidden',
+        result: 'Forbidden',
       })
     }
     req.user = user
