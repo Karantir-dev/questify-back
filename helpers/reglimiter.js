@@ -9,7 +9,7 @@ const limiter = rateLimit({
       status: 'error',
       code: httpStatusCodes.TOO_MANY_REQUESTS,
       message: 'Too Many Requests',
-      data: 'HTTP_TOO_MANY_REQUESTS',
+      result: 'HTTP_TOO_MANY_REQUESTS',
     })
   },
 })
