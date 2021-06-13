@@ -25,7 +25,7 @@ class EmailService {
     const mailGenerator = new this.#GenerateTemplate({
       theme: 'salted',
       product: {
-        name: 'GoIT23 Final Project. Todo Cards',
+        name: 'Questify',
         link: this.link,
       },
     })
@@ -33,9 +33,9 @@ class EmailService {
       body: {
         name,
         intro:
-          'Welcome to Project "Todo Cards"! We\'re very excited to have you on board.',
+          'Welcome to Project "Questify"! We\'re very excited to have you on board.',
         action: {
-          instructions: 'To get started with "Todo Cards", please click here:',
+          instructions: 'To start questify your life, please click here:',
           button: {
             color: '#22BC66',
             text: 'Confirm your account',
