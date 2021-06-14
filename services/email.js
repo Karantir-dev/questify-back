@@ -26,7 +26,7 @@ class EmailService {
       theme: 'salted',
       product: {
         name: 'Questify',
-        link: this.link,
+        link: 'https://questifyapp.netlify.app',
       },
     })
     const email = {
@@ -40,7 +40,7 @@ class EmailService {
             color: '#22BC66',
             text: 'Confirm your account',
             // link: `${this.link}/users/verify/${verifyToken}`,
-            link: `http://localhost:3000/auth/${verifyToken}`,
+            link: `https://questifyapp.netlify.app/auth/${verifyToken}`,
           },
         },
       },
