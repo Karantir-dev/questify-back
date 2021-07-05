@@ -52,7 +52,7 @@ const login = async (req, res, next) => {
         code: httpStatusCodes.OK,
         message: 'login done',
         result: {
-          token,
+          token: result?.token,
           user: { name: result?.user.name, email: result?.user.email },
         },
       })
