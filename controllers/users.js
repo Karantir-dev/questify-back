@@ -44,16 +44,16 @@ const registration = async (req, res, next) => {
 const login = async (req, res, next) => {
   const { email, password } = req.body
   try {
-    const { token, user } = await authService.login({ email, password })
-    const { verify } = user
-    if (verify && token) {
+    
+    const result = await authService.login({ email, password })
+    if (result?.user.verify && result?.token) {
       return res.status(httpStatusCodes.OK).json({
         status: 'success',
         code: httpStatusCodes.OK,
         message: 'login done',
         result: {
           token,
-          user: { name: user.name, email: user.email },
+          user: { name: result?.user.name, email: result?.user.email },
         },
       })
     }

@@ -11,17 +11,21 @@ class AuthService {
   async login({ email, password }) {
     const user = await this.repositories.users.findByEmail(email)
     if (!user) return null
-    const id = user.id
+
     if (!user.verify) {
       const token = null
       return { token, user }
     }
+    
+    const id = user.id
     await this.logout(id)
     const isValidPassword = await user.validPassword(password)
     if (!isValidPassword) return null
+
     const payload = { id }
     const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '6h' })
     await this.repositories.users.updateToken(id, token)
+
     return { token, user }
   }
 
