@@ -66,7 +66,7 @@
                     "message": {
                       "type": "string"
                     },
-                    "data": {
+                    "result": {
                       "type": "object",
                       "properties": {
                         "id": {
@@ -82,7 +82,7 @@
                     "status": "success",
                     "code": 201,
                     "message": "registration done",
-                    "data": {
+                    "result": {
                       "id": "60b91286b77146292485b08d",
                       "email": "support@example.com"
                     }
@@ -106,7 +106,7 @@
                     "message": {
                       "type": "string"
                     },
-                    "data": {
+                    "result": {
                       "type": "string"
                     }
                   },
@@ -114,7 +114,7 @@
                     "status": "error",
                     "code": 409,
                     "message": "This email is already use",
-                    "data": "Conflict"
+                    "result": "Conflict"
                   }
                 }
               }
@@ -163,11 +163,22 @@
                     "message": {
                       "type": "string"
                     },
-                    "data": {
+                    "result": {
                       "type": "object",
                       "properties": {
                         "token": {
                           "type": "string"
+                        },
+                        "user": {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            },
+                            "email": {
+                              "type": "string"
+                            }
+                          }
                         }
                       }
                     }
@@ -176,8 +187,12 @@
                     "status": "success",
                     "code": 200,
                     "message": "login done",
-                    "data": {
-                      "token": "60b91286b77146292485b08d"
+                    "result": {
+                      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVVV9.eyJpZCI6IjYwYmY5NzdlZjM3ZDU1MDAxYzYyNmUyMSIsImlhdCI6VVYyMzY5MDYzOCwiZXhwIjoxNjIzNzEyMjM4gQ.mJuplN2dPCtArAZK3JE9Ktkz7udLrEW665A8uu1naxw",
+                      "user": {
+                        "name": "Support",
+                        "email": "support@example.com"
+                      }
                     }
                   }
                 }
@@ -199,15 +214,15 @@
                     "message": {
                       "type": "string"
                     },
-                    "data": {
+                    "result": {
                       "type": "string"
                     }
                   },
                   "example": {
                     "status": "error",
                     "code": 401,
-                    "message": "Invalid credentials",
-                    "data": "Unauthorized"
+                    "message": "Invalid credentials or not verified",
+                    "result": "Unauthorized"
                   }
                 }
               }
@@ -241,6 +256,35 @@
                   "type": "object",
                   "properties": {},
                   "example": {}
+                }
+              }
+            }
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "result": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "status": "error",
+                    "code": 403,
+                    "message": "Access denied",
+                    "result": "Forbidden"
+                  }
                 }
               }
             }
@@ -285,7 +329,7 @@
                     "message": {
                       "type": "string"
                     },
-                    "data": {
+                    "result": {
                       "type": "object",
                       "properties": {
                         "email": {
@@ -298,7 +342,7 @@
                     "status": "success",
                     "code": 200,
                     "message": "Verification email resubmitted",
-                    "data": {
+                    "result": {
                       "email": "support@example.com"
                     }
                   }
@@ -321,7 +365,7 @@
                     "message": {
                       "type": "string"
                     },
-                    "data": {
+                    "result": {
                       "type": "string"
                     }
                   },
@@ -329,7 +373,7 @@
                     "status": "error",
                     "code": 404,
                     "message": "User not found",
-                    "data": "Not Found"
+                    "result": "Not Found"
                   }
                 }
               }
@@ -380,9 +424,12 @@
                     "message": {
                       "type": "string"
                     },
-                    "data": {
+                    "result": {
                       "type": "object",
                       "properties": {
+                        "name": {
+                          "type": "string"
+                        },
                         "email": {
                           "type": "string"
                         }
@@ -393,7 +440,8 @@
                     "status": "success",
                     "code": 200,
                     "message": "current user info",
-                    "data": {
+                    "result": {
+                      "name": "Support",
                       "email": "support@example.com"
                     }
                   }
@@ -416,7 +464,7 @@
                     "message": {
                       "type": "string"
                     },
-                    "data": {
+                    "result": {
                       "type": "string"
                     }
                   },
@@ -424,7 +472,36 @@
                     "status": "error",
                     "code": 404,
                     "message": "Not Found User",
-                    "data": "Not Found"
+                    "result": "Not Found"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "result": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "status": "error",
+                    "code": 403,
+                    "message": "Access denied",
+                    "result": "Forbidden"
                   }
                 }
               }
@@ -491,7 +568,7 @@
                     "message": {
                       "type": "string"
                     },
-                    "data": {
+                    "result": {
                       "type": "string"
                     }
                   },
@@ -499,7 +576,7 @@
                     "status": "error",
                     "code": 401,
                     "message": "Your verification token isn't valid. Contact to support",
-                    "data": "Unauthorized"
+                    "result": "Unauthorized"
                   }
                 }
               }
@@ -571,7 +648,7 @@
                     "message": {
                       "type": "string"
                     },
-                    "data": {
+                    "result": {
                       "type": "object",
                       "properties": {
                         "id": {
@@ -602,7 +679,7 @@
                     "status": "success",
                     "code": 201,
                     "message": "card success created",
-                    "data": {
+                    "result": {
                       "id": "60b91286b77146292485b08d",
                       "difficulty": "normal",
                       "isChallenge": false,
@@ -611,6 +688,35 @@
                       "isCompleted": false,
                       "deadline": "Sun Jun 06 2021 16:02:12 GMT+0300 (Eastern European Summer Time)"
                     }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "result": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "status": "error",
+                    "code": 403,
+                    "message": "Access denied",
+                    "result": "Forbidden"
                   }
                 }
               }
@@ -650,7 +756,7 @@
                     "message": {
                       "type": "string"
                     },
-                    "data": {
+                    "result": {
                       "type": "array",
                       "properties": {
                         "cards": {
@@ -688,7 +794,7 @@
                     "status": "success",
                     "code": 201,
                     "message": "OK",
-                    "data": {
+                    "result": {
                       "cards": [
                         {
                           "id": "60b91286b77146292485b08d",
@@ -701,6 +807,35 @@
                         }
                       ]
                     }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "result": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "status": "error",
+                    "code": 403,
+                    "message": "Access denied",
+                    "result": "Forbidden"
                   }
                 }
               }
@@ -781,7 +916,7 @@
                     "message": {
                       "type": "string"
                     },
-                    "data": {
+                    "result": {
                       "type": "object",
                       "properties": {
                         "id": {
@@ -812,7 +947,7 @@
                     "status": "success",
                     "code": 200,
                     "message": "card success updated",
-                    "data": {
+                    "result": {
                       "id": "60b91286b77146292485b08d",
                       "difficulty": "normal",
                       "isChallenge": false,
@@ -841,7 +976,7 @@
                     "message": {
                       "type": "string"
                     },
-                    "data": {
+                    "result": {
                       "type": "string"
                     }
                   },
@@ -849,7 +984,36 @@
                     "status": "error",
                     "code": 404,
                     "message": "Not found card",
-                    "data": "Not Found"
+                    "result": "Not Found"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "result": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "status": "error",
+                    "code": 403,
+                    "message": "Access denied",
+                    "result": "Forbidden"
                   }
                 }
               }
@@ -898,7 +1062,7 @@
                     "message": {
                       "type": "string"
                     },
-                    "data": {
+                    "result": {
                       "type": "object",
                       "properties": {
                         "id": {
@@ -929,7 +1093,7 @@
                     "status": "success",
                     "code": 200,
                     "message": "card success updated",
-                    "data": {
+                    "result": {
                       "id": "60b91286b77146292485b08d",
                       "difficulty": "normal",
                       "isChallenge": false,
@@ -958,7 +1122,7 @@
                     "message": {
                       "type": "string"
                     },
-                    "data": {
+                    "result": {
                       "type": "string"
                     }
                   },
@@ -966,7 +1130,36 @@
                     "status": "error",
                     "code": 404,
                     "message": "Not found card",
-                    "data": "Not Found"
+                    "result": "Not Found"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "result": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "status": "error",
+                    "code": 403,
+                    "message": "Access denied",
+                    "result": "Forbidden"
                   }
                 }
               }
@@ -1015,7 +1208,7 @@
                     "message": {
                       "type": "string"
                     },
-                    "data": {
+                    "result": {
                       "type": "object",
                       "properties": {
                         "id": {
@@ -1046,7 +1239,7 @@
                     "status": "DELETE",
                     "code": 200,
                     "message": "card success deleted",
-                    "data": {
+                    "result": {
                       "id": "60b91286b77146292485b08d",
                       "difficulty": "normal",
                       "isChallenge": false,
@@ -1075,7 +1268,7 @@
                     "message": {
                       "type": "string"
                     },
-                    "data": {
+                    "result": {
                       "type": "string"
                     }
                   },
@@ -1083,7 +1276,36 @@
                     "status": "error",
                     "code": 404,
                     "message": "Not found card",
-                    "data": "Not Found"
+                    "result": "Not Found"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "result": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "status": "error",
+                    "code": 403,
+                    "message": "Access denied",
+                    "result": "Forbidden"
                   }
                 }
               }
@@ -1149,7 +1371,7 @@
                     "message": {
                       "type": "string"
                     },
-                    "data": {
+                    "result": {
                       "type": "object",
                       "properties": {
                         "id": {
@@ -1180,7 +1402,7 @@
                     "status": "success",
                     "code": 200,
                     "message": "card status is update",
-                    "data": {
+                    "result": {
                       "id": "60b91286b77146292485b08d",
                       "difficulty": "normal",
                       "isChallenge": false,
@@ -1209,7 +1431,7 @@
                     "message": {
                       "type": "string"
                     },
-                    "data": {
+                    "result": {
                       "type": "string"
                     }
                   },
@@ -1217,7 +1439,36 @@
                     "status": "error",
                     "code": 404,
                     "message": "Not found card",
-                    "data": "Not Found"
+                    "result": "Not Found"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "result": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "status": "error",
+                    "code": 403,
+                    "message": "Access denied",
+                    "result": "Forbidden"
                   }
                 }
               }
@@ -1283,7 +1534,7 @@
                     "message": {
                       "type": "string"
                     },
-                    "data": {
+                    "result": {
                       "type": "object",
                       "properties": {
                         "id": {
@@ -1314,7 +1565,7 @@
                     "status": "success",
                     "code": 200,
                     "message": "card status is update",
-                    "data": {
+                    "result": {
                       "id": "60b91286b77146292485b08d",
                       "difficulty": "normal",
                       "isChallenge": false,
@@ -1343,7 +1594,7 @@
                     "message": {
                       "type": "string"
                     },
-                    "data": {
+                    "result": {
                       "type": "string"
                     }
                   },
@@ -1351,7 +1602,36 @@
                     "status": "error",
                     "code": 404,
                     "message": "Not found card",
-                    "data": "Not Found"
+                    "result": "Not Found"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "integer"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "result": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "status": "error",
+                    "code": 403,
+                    "message": "Access denied",
+                    "result": "Forbidden"
                   }
                 }
               }
